@@ -1,1 +1,65 @@
-<p>login works!</p>
+<div class="app-content content">
+    <div class="content-wrapper">
+      <div class="content-body">
+        <!-- Header footer section start -->
+        <section id="header-footer">
+          <div class="row match-height">
+            <div class="col-lg-6" style="margin: 0 auto; margin-left: 15%; margin-top: 1%;">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title" style="text-align: center">Login</h3>
+                  <h6 class="card-subtitle text-muted" style="text-align: center">Welcome to DBS Customer Service Platform!</h6>
+                </div>
+                <img class="" src="../../assets/theme-assets/images/icons/dbs.png" style="width: 70%; align-self: center">
+                <div class="card-body">
+                 <form [formGroup]="loginForm" >
+                        <div class="col-xl-6 col-lg-6 col-md-12" style="margin: 0 auto;">
+                      
+                          <div class="card">
+                              <div class="card-header">
+                                  <h4 class="card-title">Email</h4>
+                              </div>
+                              <div class="card-block">
+                                  <div class="card-body">
+                                      <fieldset class="form-group">
+                                          <input type="text" class="form-control" id="email" formControlName="email" autocomplete="off" [(ngModel)]="email">
+                                      </fieldset>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+  
+                      <div class="col-xl-6 col-lg-6 col-md-12" style="margin: 0 auto; margin-top: -5% ;">
+                          <div class="card">
+                              <div class="card-header">
+                                  <h4 class="card-title">Password</h4>
+                              </div>
+                              <div class="card-block">
+                                  <div class="card-body">
+                                      <fieldset class="form-group">
+                                          <input type="password" class="form-control" id="password" formControlName="password" autocomplete="off" [(ngModel)]="password">
+                                      </fieldset>
+                                  </div>
+                              </div>
+                              
+                          </div>
+                      </div>
+  
+                      <div *ngIf="loginError == true" style="text-align: center; color: red;margin: 0 auto;">
+                        {{errorMessage}}
+                      </div>
+  
+                      <div style="margin: 0 auto;margin-left:30%">
+                        <button type="button" value="submit" class="btn btn-primary btn-min-width mr-1 mb-1" (click)="onClickMe()">Login</button>
+                      </div>  
+                 </form>
+             
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      </div>
+    </div>
+  
