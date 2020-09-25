@@ -23,6 +23,10 @@ export class AuthService {
     return this.http.post(AUTH_API + 'login', {
       username: credentials.username,
       password: credentials.password
-    },{ responseType: 'text' })
+    }, { responseType: 'text' })
+  }
+
+  extend(token): Observable<any> {
+    return this.http.get(AUTH_API + "extendSession", {responseType: 'text',  headers: {['Authorization']: `Bearer ${token}`}});
   }
 }
