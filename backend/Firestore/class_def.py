@@ -9,7 +9,7 @@ class User:
     def __repr__(self) -> str:
         return "User(username = {}, password = {})".format(self.username, self.password)
 
-    def __init__(self, username: str, password: str) :
+    def __init__(self, username: str, password: str):
         # only need username/password
         self.username = username
         self.password = password
