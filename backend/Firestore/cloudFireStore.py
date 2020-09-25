@@ -10,9 +10,10 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "private.json"
 
 db = firestore.Client()
 
-
+# collectionName is users
 def read(collectionName: str, documentName: str):
     """reads a given document from firebase. returns the dict object unless document not found then returns None. caller has to handle the case of None"""
+    # document name is our username
     doc_ref = db.collection(collectionName).document(documentName)
     try:
         doc = doc_ref.get()
@@ -20,27 +21,16 @@ def read(collectionName: str, documentName: str):
     except google.cloud.exceptions.NotFound:
         return None
 
-def readAll(collectionName: str):
-    """returns the whole collection as a list of objects"""
-    # result = dict()
-    result = []
-    iter = db.collection(collectionName).list_documents()
-    for i in iter:
-        object = i.get()
-        # result[object.id] = (object.to_dict())
-        result.append(object.to_dict())
-    return result 
-
 def create(collectionName: str, documentName: str, data: dict):
     """creates the given document in the collection. this operation is idempotent"""
-    db.collection(collection).document(document).set(data)
+    db.collection(collectionName).document(documentName).set(data)
 
 
 def update(collectionName: str, documentName: str, data: dict):
     """update the given document in the collection. this operation is NON-idempotent"""
-    db.collection(collection).document(document).update(data)
+    db.collection(collectionName).document(documentName).update(data)
 
 
 def delete(collectionName: str, documentName: str):
     """deletes the given document in the collection. this operation is idempotent"""
-    db.collection(collection).document(document).delete()
+    db.collection(collectionName).document(documentName).delete()

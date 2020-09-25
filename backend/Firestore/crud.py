@@ -50,16 +50,3 @@ def delete():
     resp = jsonify(success=True)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp 
-
-@crud.route('/readall', methods = ['GET'])
-def readall():
-    """reads an entire collection from args and returns it as a list of objs that it maps to"""
-    d = request.args.to_dict()
-    print(d)
-    data = cloudFireStore.readAll(**d)
-    if data == None:
-        raise NotFound("The document you are requesting could not be found in the database")
-    resp = make_response(data)
-    print(data)
-    resp.headers['Access-Control-Allow-Origin'] = '*' # do this for everything 
-    return resp 
