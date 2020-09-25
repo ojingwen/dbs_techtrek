@@ -12,18 +12,37 @@
                 </div>
                 <img class="" src="../../assets/theme-assets/images/icons/dbs.png" style="width: 70%; align-self: center">
                 <div class="card-body">
-                 <form [formGroup]="loginForm" >
+                  <form
+                  *ngIf="!isLoggedIn"
+                  name="form"
+                  (ngSubmit)="f.form.valid && onSubmit()"
+                  #f="ngForm"
+                  novalidate>
                         <div class="col-xl-6 col-lg-6 col-md-12" style="margin: 0 auto;">
                       
                           <div class="card">
                               <div class="card-header">
-                                  <h4 class="card-title">Email</h4>
+                                  <h4 class="card-title">Username</h4>
                               </div>
                               <div class="card-block">
                                   <div class="card-body">
                                       <fieldset class="form-group">
-                                          <input type="text" class="form-control" id="email" formControlName="email" autocomplete="off" [(ngModel)]="email">
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        name="username"
+                                        [(ngModel)]="form.username"
+                                        required
+                                        #username="ngModel"
+                                      />
                                       </fieldset>
+                                      <div
+                                      class="alert alert-danger"
+                                      role="alert"
+                                      *ngIf="f.submitted && username.invalid"
+                                    >
+                                      Username is required!
+                                    </div>
                                   </div>
                               </div>
                           </div>
@@ -37,20 +56,38 @@
                               <div class="card-block">
                                   <div class="card-body">
                                       <fieldset class="form-group">
-                                          <input type="password" class="form-control" id="password" formControlName="password" autocomplete="off" [(ngModel)]="password">
-                                      </fieldset>
+                                        <input
+                                        type="password"
+                                        class="form-control"
+                                        name="password"
+                                        [(ngModel)]="form.password"
+                                        required
+                                        minlength="6"
+                                        #password="ngModel"
+                                      />
+                                      <div
+                                        class="alert alert-danger"
+                                        role="alert"
+                                        *ngIf="f.submitted && password.invalid"
+                                      >
+                                        <div *ngIf="password.errors.required">Password is required</div>
+                                        <div *ngIf="password.errors.minlength">
+                                          Password must be at least 6 characters
+                                        </div>
+                                      </div>
+                                    </fieldset>
                                   </div>
                               </div>
                               
                           </div>
                       </div>
   
-                      <div *ngIf="loginError == true" style="text-align: center; color: red;margin: 0 auto;">
+                      <div *ngIf="f.submitted && isLoginFailed" style="text-align: center; color: red;margin: 0 auto;">
                         {{errorMessage}}
                       </div>
   
                       <div style="margin: 0 auto;margin-left:30%">
-                        <button type="button" value="submit" class="btn btn-primary btn-min-width mr-1 mb-1" (click)="onClickMe()">Login</button>
+                        <button type="button" value="submit" class="btn btn-primary btn-min-width mr-1 mb-1" (click)="onSubmit()">Login</button>
                       </div>  
                  </form>
              

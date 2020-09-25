@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
-const AUTH_API = 'http://localhost:8080/api/auth/';
+const AUTH_API = 'http://techtrek2020.ap-southeast-1.elasticbeanstalk.com/';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'text/json' })
 };
 
 @Injectable({
@@ -16,9 +17,12 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(credentials): Observable<any> {
-    return this.http.post(AUTH_API + 'signin', {
+    console.log('USERNAME: ' + credentials.username);
+    console.log('PW: ' + credentials.password);
+
+    return this.http.post(AUTH_API + 'login', {
       username: credentials.username,
       password: credentials.password
-    }, httpOptions);
+    },{ responseType: 'text' })
   }
 }
